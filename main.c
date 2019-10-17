@@ -30,7 +30,7 @@ int main (void)
         
         printf("Ingrese un String: \n");
         origen= str;
-        final= get_str(char * str);
+        final=get_str(str,string);
         str_check(origen,final);
         printf("Si desea salir presione Q ,de lo contrario ingrese cualquier tecla\n");
         i=getchar();
@@ -55,13 +55,13 @@ void str_check (char * origen,char * final){
     }
 }
 
-char* get_str (char * str){
+char * get_str (char * str, char string[CANT]){
     char pull_char;
     int i;
     i=0;     
     pull_char=getchar();
     while ( i<CANT && IS_LETTER(pull_char) && pull_char!='\n'){
-        *str[i]=pull_char;
+        string[i]= pull_char;
         i++;
     }
     return str[i];
