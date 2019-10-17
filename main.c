@@ -13,48 +13,56 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "str_check.h"
+#include "recursive.h"
+
+#define IS_LETTER(i)    ((i)>='a' && (i)<='z'||(i)>='A'&& (i)<='Z')
+#define CANT    50
 /*
  * 
  */
-int main (void){
-    int cntinue=1;
+int main (void)
+{
+    char string[CANT];
+    char *str,*origen,*final;
+    str=string;
+    int cntinue=1,i;
     while(cntinue){
         
         printf("Ingrese un String: \n");
-        get_str()
+        origen= str;
+        final= get_str(char * str);
         str_check(origen,final);
-        printf("Desea continuar? [y/n]:");
-        cntinue=wanna_follow();
-        
+        printf("Si desea salir presione Q ,de lo contrario ingrese cualquier tecla\n");
+        i=getchar();
+        if((i=='q')||(i=='Q')) {
+            cntinue=0;
+        }   
     }
     return (EXIT_SUCCESS);
     
 }
 
 void str_check (char * origen,char * final){
-    
     if (origen == final){
         printf("Es palindromo\n");
     }
     
     else if (*origen == *final){
-        str_check((origen+1),(final-1))
+        str_check((origen+1),(final-1));
     }
     else {
-        printf("No es palindromo\n")
+        printf("No es palindromo\n");
     }
-    
 }
 
-int wanna_follow (void) {
-    
-    int a;
-    a=getchar();
-    if (a=='y'||a=="Y"){
-        return 1;
+char* get_str (char * str){
+    char pull_char;
+    int i;
+    i=0;     
+    pull_char=getchar();
+    while ( i<CANT && IS_LETTER(pull_char) && pull_char!='\n'){
+        *str[i]=pull_char;
+        i++;
     }
-    else{
-        return 0;
-    }
+    return str[i];
 }
