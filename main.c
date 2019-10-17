@@ -48,7 +48,7 @@ void str_check (char * origen,char * final){
     }
     
     else if (*origen == *final){
-        str_check((origen+1),(final-1));
+        str_check((origen-1),(final+1));
     }
     else {
         printf("No es palindromo\n");
