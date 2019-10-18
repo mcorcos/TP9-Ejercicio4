@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "recursive.h"
 
 #define IS_LETTER(i)    ((i)>='a'&&(i)<='z'||(i)>='A'&&(i)<='Z')
@@ -31,12 +32,16 @@ int main(void) {
         printf("Ingrese un string: \n");
         origen=str;
         final=get_str(str, string);
-        str_check(origen, final);
-        printf("\nPresione enter para continuar, o Q para salir\n");
-        i=getchar();
-        if ((i == 'q') || (i == 'Q')) {
-            cntinue = 0;
-            
+        if(origen<final) {
+            str_check(origen, final);
+            printf("\nPresione enter para continuar, o Q para salir\n");
+            i=getchar();
+            if ((i == 'q') || (i == 'Q')) {
+                cntinue = 0;  
+            }
+        }
+        else{
+            printf("string no valido,intentelo nuevamente\n");
         }
     }
     return (EXIT_SUCCESS);

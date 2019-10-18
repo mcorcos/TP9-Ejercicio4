@@ -15,7 +15,7 @@
 #define RECURSIVE_H
 
 void str_check (char * origen, char * final);
-char* get_str (char * str);
+char* get_str (char * str,char string[]);
 
 #endif /* RECURSIVE_H */
 
