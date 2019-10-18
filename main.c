@@ -15,7 +15,8 @@
 #include <stdlib.h>
 #include "recursive.h"
 
-#define IS_LETTER(i)    ((i)>='a' && (i)<='z'||(i)>='A'&& (i)<='Z')
+#define IS_LETTER(i)    ((i)>='a'&&(i)<='z'||(i)>='A'&&(i)<='Z')
+#define IS_CAPITAL(i)   ((i)>='A'&&(i)<='Z')
 #define CANT    50
 
 /*
@@ -23,19 +24,19 @@
  */
 int main(void) {
     char string[CANT];
-    char *str, *origen, *final;
-    str=&string[0];
-    int cntinue = 1, i=0;
+    char *str=&string[0], *origen, *final;
+    int cntinue=1, i=0;
     while (cntinue) {
 
-        printf("Ingrese un String: \n");
+        printf("Ingrese un string: \n");
         origen=str;
         final=get_str(str, string);
         str_check(origen, final);
-        printf("Si desea salir presione Q ,de lo contrario ingrese cualquier tecla\n");
-        i = getchar();
+        printf("\nPresione enter para continuar, o Q para salir\n");
+        i=getchar();
         if ((i == 'q') || (i == 'Q')) {
             cntinue = 0;
+            
         }
     }
     return (EXIT_SUCCESS);
@@ -43,12 +44,14 @@ int main(void) {
 }
 
 void str_check(char * origen, char * final) {
-    if (origen == final) {
+    
+    if (origen == final || origen == (final+1)) {
         printf("Es palindromo\n");
     }
     else if (*origen == *final) {
         str_check((origen+1), (final-1));
-    } else {
+    } 
+    else {
         printf("No es palindromo\n");
     }
 }
@@ -62,8 +65,13 @@ char * get_str(char * str, char string[CANT]) {
         if( (pull_char=='\n')||(i==CANT) ) {
             j=0;
             i-=1;
-        } 
+        }
         else if (IS_LETTER(pull_char)) {
+            
+            if (IS_CAPITAL(pull_char)){
+                pull_char+=('a'-'A');
+            }
+            
             string[i] = pull_char;
             i++;
         }
