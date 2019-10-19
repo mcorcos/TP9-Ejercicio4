@@ -54,10 +54,10 @@ int main(void) {
 
 void str_check(char * origen, char * final) {
     
-    if (origen == final || origen == (final+1)) {      /*caso base:cuando los punteros apuntan a la misma letra o se pasan*/
-        printf("Es palindromo\n");
+    if (origen == final || origen == (final+1)) {      /*caso base:cuando los punteros apuntan a una unica letra */
+        printf("Es palindromo\n");                     /*o apuntan a letras consecutivas*/
     }
-    else if (*origen == *final) {               /*caso recursivo*/
+    else if (*origen == *final) {               /*caso recursivo: la letra que apuntan los punteros es la misma*/
         str_check((origen+1), (final-1));
     } 
     else {
