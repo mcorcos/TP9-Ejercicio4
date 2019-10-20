@@ -31,21 +31,23 @@ int main(void) {
 
         printf("Ingrese un string (hasta 100 letras): \n");
         origen=str;                     /*el puntero origen apunta al comienzo del arreglo*/
-        final=get_str(str, string);     /*llamo a la funcion que define el puntero al final del arreglo*/
-        if(origen<final) {
+        final=get_str(string);     /*llamo a la funcion que define el puntero al final del arreglo*/
+        
+        if(origen<=final) {           /*si el puntero no fue  valido no ingresa*/
             
             str_check(origen, final);      /*llamo a la funcion que analiza el string*/
             printf("\nPresione enter para continuar, o cualquier letra para salir\n");
            
             i=getchar();                    /*espero a ver si termino o se quiere ingresar un nuevo string*/
            
-            if (i != '\n') {                 /*si se presiono enter termino*/
+            if (i != '\n') {                 /*si no se presiono enter termino*/
                 cntinue = 0;  
             }
             
         }
         else{
-            printf("string no valido,intentelo nuevamente\n");
+            printf("\nString invalido\n");
+            cntinue=0;                             /*si se ingreso un string invalido (vacio o excedido de letras) termino el programa*/
         }
     }
     return (EXIT_SUCCESS);
@@ -54,15 +56,20 @@ int main(void) {
 
 void str_check(char * origen, char * final) {
     
-    if (origen == final || origen == (final+1)) {      /*caso base:cuando los punteros apuntan a una unica letra */
-        printf("Es palindromo\n");                     /*o apuntan a letras consecutivas*/
+    if ((origen >= final) || (*origen != *final) ) {      /*caso base:cuando los punteros recorren se encuentran o pasan (ya se analizo todo el string) */
+                                                          /*o apuntan a letras distintas*/
+        if( origen >= final ){
+            
+            printf("Es palindromo\n");                  /* si se recorrio todo el string es palindromo*/
+        }
+        else {
+            printf("No es palindromo\n");               /*sino es porque alguna letra no coincidia por lo tanto no es palindromo*/
+        }
     }
-    else if (*origen == *final) {               /*caso recursivo: la letra que apuntan los punteros es la misma*/
+    else {               /*caso recursivo: la letra que apuntan los punteros es la misma*/
         str_check((origen+1), (final-1));
     } 
-    else {
-        printf("No es palindromo\n");          /*cuando no se cumple se debe terminar*/
-    }
+    
 }
 
 char * get_str(char string[CANT]) {
@@ -73,7 +80,19 @@ char * get_str(char string[CANT]) {
         
 	
 	pull_char = getchar();             /*leo el string de a un caracter*/
-        if (IS_LETTER(pull_char)) {         /*si es una letra la tengo que guardar*/
+        
+      if( (pull_char=='\n')||(i==CANT) ) {   /*si copie todo el string o ya se completo el rango termino*/
+            
+            j=0;
+            i-=1;                               /*le resto uno ya que funciona como indice para el puntero del final*/
+       
+            if((i==CANT-1) && (pull_char != '\n')){          /* si ya hay 100 letras y la siguiente no es un enter se considera invalido*/
+			printf("\n CANTIDAD DE LETRAS EXCEDIDAS \n");
+			i=-1;                                  /*defino asi para devolver un puntero menor a origen*/
+		}
+      }
+        
+       else if (IS_LETTER(pull_char)) {         /*si es una letra la tengo que guardar*/
             
             if (IS_CAPITAL(pull_char)){
                 pull_char+=('a'-'A');       /*si fue mayuscula, la convierto en minuscula*/
@@ -82,12 +101,9 @@ char * get_str(char string[CANT]) {
             string[i] = pull_char;          /*guardo las letras*/
             i++;
         }
-	else if( (pull_char=='\n')||(i==CANT) ) {   /*si copie todo el string o ya se completo el rango termino*/
-            j=0;
-            i-=1;                               /*le resto uno ya que funciona como indice para el puntero del final*/
-        }
+	
         
     }
-    str=&string[i];
+    str=&string[i];                     /*devuelvo el puntero final*/
     return str;
 }
