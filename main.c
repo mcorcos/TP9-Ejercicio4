@@ -16,8 +16,8 @@
 
 #include "recursive.h"
 
-#define IS_LETTER(i)    (((i)>='a'&&(i)<='z')||((i)>='A'&&(i)<='Z'))
-#define IS_CAPITAL(i)   ((i)>='A'&&(i)<='Z')
+#define IS_LETTER(i)    (((i)>='a'&&(i)<='z')||((i)>='A'&&(i)<='Z'))  /*Verifica(devuelve 1) si un caracter es letra*/
+#define IS_CAPITAL(i)   ((i)>='A'&&(i)<='Z')  /*Verifica si un caracter es una letra mayuscula*/
 #define CANT    100
 
 /*
@@ -65,8 +65,8 @@ void str_check(char * origen, char * final) {
     }
 }
 
-char * get_str(char * str, char string[CANT]) {
-    char pull_char;
+char * get_str(char string[CANT]) {
+    char pull_char, *str ;
     int j=1,i;
     
     for (i=0;j;) {
