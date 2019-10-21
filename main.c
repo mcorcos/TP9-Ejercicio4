@@ -56,8 +56,8 @@ int main(void) {
 
 void str_check(char * origen, char * final) {
     
-    if ((origen >= final) || (*origen != *final) ) {      /*caso base:cuando los punteros recorren se encuentran o pasan (ya se analizo todo el string) */
-                                                          /*o apuntan a letras distintas*/
+    if ((origen >= final) || (*origen != *final) ) {      /*caso base: O los punteros apuntan a la misma letra o a dos letras consecutivas, */
+                                                          /* o las letras a las que se apunta son diferentes*/
         if( origen >= final ){
             
             printf("Es palindromo\n");                  /* si se recorrio todo el string es palindromo*/
@@ -66,7 +66,7 @@ void str_check(char * origen, char * final) {
             printf("No es palindromo\n");               /*sino es porque alguna letra no coincidia por lo tanto no es palindromo*/
         }
     }
-    else {               /*caso recursivo: la letra que apuntan los punteros es la misma*/
+    else {                                              /*caso recursivo: la letra que apuntan los punteros es la misma*/
         str_check((origen+1), (final-1));
     } 
     
